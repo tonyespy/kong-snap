@@ -24,7 +24,9 @@ fi
 # copy the configuration for luarocks into $SNAP_DATA where it is editable
 # and is also bind mounted on top of /etc/luarocks/config.lua inside the snap
 # mount namespace
-cp "$SNAP/etc/luarocks/config.lua" "$SNAP_DATA/etc/luarocks/config.lua"
+# TODO: check with Ian & Colin why this is necessary? When would we ever need
+# to mske changes to config.lua???
+#cp "$SNAP/etc/luarocks/config.lua" "$SNAP_DATA/etc/luarocks/config.lua"
 
 # setup postgres data dir and permissions so it can run 
 "$SNAP/bin/common-postgres-setup.sh"
