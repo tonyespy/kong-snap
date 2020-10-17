@@ -20,7 +20,8 @@ confinement: strict
 layout:
   /etc/luarocks:
     bind: $SNAP_DATA/etc/luarocks
-
+  /usr/local:
+    bind: $SNAP/usr/local
 system-usernames:
   snap_daemon: shared
 
@@ -76,7 +77,7 @@ apps:
     stop-command: bin/kong-stop.sh
   kong:
     adapter: full
-    command: bin/kong
+    command: usr/local/bin/kong
     command-chain:
       - bin/perl5lib-launch.sh
       - bin/kong-launch.sh
@@ -182,6 +183,7 @@ parts:
       sha256sum -c sha256 | grep OK
       dpkg -x $FILE_NAME $SNAPCRAFT_PART_INSTALL
 
+      mkdir $SNAPCRAFT_PART_INSTALL/config
       cp $SNAPCRAFT_PART_INSTALL/etc/kong/kong.conf.default $SNAPCRAFT_PART_INSTALL/config/kong.conf
     #prime:
     #  - usr/local/*
